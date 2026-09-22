@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Flores Amarillas • Te Amo</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden}
+body{
+  background:#090507;
+  font-family:Georgia,"Times New Roman",serif;
+  color:#fff;
+}
+.scene{
+  position:relative;width:100%;height:100%;
+  min-height:560px;overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 42%,rgba(255,224,57,.28),transparent 24%),
+    radial-gradient(circle at 50% 55%,rgba(255,178,0,.13),transparent 42%),
+    #050505;
+}
+.pink{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(circle at 15% 12%,rgba(255,0,148,.32),transparent 25%),
+    radial-gradient(circle at 85% 80%,rgba(255,0,148,.25),transparent 30%),
+    linear-gradient(145deg,#17020e,#42001f 45%,#110007);
+}
+.pink:before,.pink:after{
+  content:"♡";position:absolute;color:rgba(255,0,157,.28);
+  font-size:clamp(70px,12vw,170px);
+  animation:floatHeart 7s ease-in-out infinite;
+}
+.pink:before{left:5%;top:12%}.pink:after{right:4%;bottom:5%;animation-delay:-3s}
+.header{
+  position:absolute;top:0;left:50%;transform:translateX(-50%);
+  width:min(560px,94vw);height:82px;z-index:10;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(#ec008c,#c90072);
+  border-radius:0 0 22px 22px;
+  box-shadow:0 8px 35px rgba(255,0,140,.25);
+  letter-spacing:1px;font-size:clamp(22px,4vw,34px);font-weight:bold;
+}
+.header span{position:absolute;opacity:.25;font-size:70px}
+.header .h1{left:7px}.header .h2{right:12px}
+.galaxy{
+  position:absolute;left:50%;top:82px;transform:translateX(-50%);
+  width:min(560px,94vw);height:calc(100% - 82px);
+  overflow:hidden;border-radius:0 0 30px 30px;
+  background:
+    radial-gradient(circle at 50% 45%,rgba(255,245,139,.88),transparent 4%),
+    radial-gradient(circle at 50% 46%,rgba(255,218,52,.35),transparent 18%),
+    radial-gradient(circle at 35% 20%,rgba(255,225,50,.35),transparent 28%),
+    linear-gradient(#1a2104,#090d04 46%,#030403);
+}
+.galaxy:after{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(circle at 50% 55%,transparent 0 20%,rgba(0,0,0,.15) 55%,rgba(0,0,0,.5));
+  pointer-events:none;
+}
+.stars{position:absolute;inset:0;z-index:1}
+.star{
+  position:absolute;width:2px;height:2px;border-radius:50%;
+  background:#fffbd1;box-shadow:0 0 7px #fff58b;
+  animation:twinkle 2s ease-in-out infinite;
+}
+.star.big{width:5px;height:5px;background:#fff36a}
+.heart{
+  position:absolute;left:50%;top:24%;
+  transform:translate(-50%,-50%);
+  width:112px;height:100px;z-index:4;
+  filter:drop-shadow(0 0 12px #fff07a);
+}
+.heart:before,.heart:after{
+  content:"";position:absolute;top:0;width:58px;height:92px;
+  border:5px solid #fff3a0;border-bottom:0;border-radius:55px 55px 0 0;
+  background:transparent;
+}
+.heart:before{left:52px;transform:rotate(45deg);transform-origin:0 100%}
+.heart:after{left:0;transform:rotate(-45deg);transform-origin:100% 100%}
+.heartText{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  z-index:6;color:#fff8bc;font-weight:bold;font-size:15px;white-space:nowrap;
+  text-shadow:0 0 8px #fff;
+}
+.glow{
+  position:absolute;left:50%;top:48%;transform:translate(-50%,-50%);
+  width:115px;height:40px;border-radius:50%;
+  background:#fffbd0;filter:blur(10px);opacity:.9;z-index:2;
+  animation:pulse 2s ease-in-out infinite;
+}
+.pedestal{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  z-index:3;font-size:45px;color:#fff9a8;text-shadow:0 0 20px #fff36d;
+}
+.flower{
+  position:absolute;z-index:5;font-size:clamp(34px,7vw,65px);
+  filter:drop-shadow(0 0 8px rgba(255,230,50,.8));
+  animation:sway 3s ease-in-out infinite;
+}
+.f1{left:10%;top:39%;animation-delay:-.3s}.f2{left:73%;top:32%;animation-delay:-1.1s}
+.f3{left:13%;top:61%;animation-delay:-2s}.f4{left:72%;top:60%;animation-delay:-.8s}
+.f5{left:45%;top:69%;font-size:48px;animation-delay:-1.6s}
+.f6{left:31%;top:28%;font-size:30px}.f7{left:83%;top:46%;font-size:35px}
+.f8{left:53%;top:37%;font-size:29px}.f9{left:26%;top:49%;font-size:31px}
+.words{position:absolute;inset:0;z-index:6;pointer-events:none}
+.word{
+  position:absolute;color:#fff;opacity:.9;font-weight:bold;
+  font-size:14px;text-shadow:0 0 8px #fff36d;
+  animation:wordFloat 4s ease-in-out infinite;
+}
+.w1{left:4%;top:49%}.w2{right:5%;top:43%}.w3{left:35%;top:57%}
+.w4{right:16%;top:72%}.w5{left:18%;top:70%}.w6{right:28%;top:55%}
+.code{
+  position:absolute;left:50%;bottom:7%;transform:translateX(-50%);
+  width:min(420px,78%);z-index:9;
+  padding:22px 24px 20px;border-radius:16px;
+  background:linear-gradient(145deg,#09202c,#06141e);
+  border:1px solid rgba(94,219,255,.18);
+  box-shadow:0 20px 50px rgba(0,0,0,.55),0 0 30px rgba(255,0,130,.13);
+  font-family:Consolas,monospace;text-align:left;
+}
+.dots{display:flex;gap:7px;margin-bottom:12px}.dots i{width:12px;height:12px;border-radius:50%;background:#ff506a}.dots i:nth-child(2){background:#ffd84d}.dots i:nth-child(3){background:#62e66e}
+.file{position:absolute;right:18px;top:17px;color:#d6e6ef;font-size:12px}
+.codeLine{font-size:clamp(11px,2.1vw,15px);line-height:1.55;color:#d6f2ff}
+.sel{color:#f4e85c}.prop{color:#fff}.val{color:#ff7ea9}.var{color:#7be4ff}.green{color:#75ef9d}
+.final{
+  position:absolute;inset:0;z-index:30;display:flex;align-items:center;justify-content:center;
+  background:rgba(8,0,5,.72);backdrop-filter:blur(4px);
+  opacity:0;pointer-events:none;transition:opacity 1.2s;
+}
+.card{
+  width:min(360px,78vw);padding:28px 24px 34px;text-align:center;
+  border-radius:20px;background:#fffdf5;color:#433014;
+  box-shadow:0 0 60px rgba(255,226,74,.55);
+  transform:scale(.7) rotate(-2deg);transition:transform 1.1s cubic-bezier(.2,1.4,.4,1);
+}
+.final.show{opacity:1}.final.show .card{transform:scale(1) rotate(-1deg)}
+.card .sunflowers{font-size:52px;letter-spacing:4px}.card h1{margin:8px 0;font-size:32px;color:#bd7500}.card p{font-size:18px;line-height:1.45;margin:8px 0}
+.restart{
+  position:fixed;right:18px;bottom:18px;z-index:50;border:1px solid rgba(255,255,255,.2);
+  background:rgba(0,0,0,.45);color:white;border-radius:999px;padding:9px 14px;cursor:pointer;
+  backdrop-filter:blur(8px)
+}
+@keyframes twinkle{50%{opacity:.2;transform:scale(.5)}}
+@keyframes pulse{50%{transform:translate(-50%,-50%) scale(1.5);opacity:.45}}
+@keyframes sway{50%{transform:translateY(-8px) rotate(4deg)}}
+@keyframes wordFloat{50%{transform:translateY(-7px)}}
+@keyframes burst{to{opacity:0;transform:translate(var(--x),var(--y)) scale(1.4) rotate(180deg)}}@keyframes floatHeart{50%{transform:translateY(-25px) rotate(8deg)}}
+@media(max-width:600px){.code{bottom:3%;padding:15px}.flower{font-size:38px}.f5{font-size:34px}.heart{transform:translate(-50%,-50%) scale(.82)}}
+.flower{cursor:pointer;transition:transform .2s ease,filter .2s ease}.flower:hover{transform:scale(1.12)}.flower:active{transform:scale(.88)}.interactive-note{position:absolute;top:105px;left:50%;transform:translateX(-50%);z-index:20;padding:9px 17px;border-radius:999px;background:rgba(25,28,5,.72);border:1px solid rgba(255,235,100,.35);color:#fffbc7;font-weight:bold;font-size:14px;opacity:0;transition:.3s;pointer-events:none;white-space:nowrap}.interactive-note.show{opacity:1}</style>
+</head>
+<body>
+<div class="scene" id="scene">
+  <div class="pink"></div>
+  
+  <div class="galaxy">
+    <div class="stars" id="stars"></div>
+    <div class="glow"></div>
+    <div class="heart"><div class="heartText">Te amo ♥ ♡</div></div>
+    <div class="pedestal">◌</div>
+
+    <div class="flower f1">🌻</div><div class="flower f2">🌼</div>
+    <div class="flower f3">🌻</div><div class="flower f4">🌼</div>
+    <div class="flower f5">🌷</div><div class="flower f6">🌼</div>
+    <div class="flower f7">🌻</div><div class="flower f8">🌼</div><div class="flower f9">🌻</div>
+
+    <div class="words">
+      <span class="word w1">Mi amor ♡</span>
+      <span class="word w2">Te adoro ♥</span>
+      <span class="word w3">Amor de mi vida</span>
+      <span class="word w4">My Love ♡</span>
+      <span class="word w5">Eres preciosa</span>
+      <span class="word w6">Siempre juntos ♥</span>
+    </div>
+  </div>
+
+  <div class="interactive-note" id="interactiveNote"></div><div class="code" style="display:none">
+    <div class="dots"><i></i><i></i><i></i></div>
+    <span class="file">Style.css</span>
+    <div class="codeLine"><span class="sel">.Flores_Amarillas</span> {</div>
+    <div class="codeLine">&nbsp;&nbsp;<span class="prop">position</span>: <span class="val">absolute</span>;</div>
+    <div class="codeLine">&nbsp;&nbsp;<span class="prop">width</span>: <span class="green">90%</span>;</div>
+    <div class="codeLine">&nbsp;&nbsp;<span class="prop">font-size</span>: <span class="green">2rem</span>;</div>
+    <div class="codeLine">&nbsp;&nbsp;<span class="prop">font-family</span>: <span class="val">"Te Amo"</span>;</div>
+    <div class="codeLine">&nbsp;&nbsp;<span class="prop">height</span>: <span class="var">var(--letter-love)</span>;</div>
+    <div class="codeLine">&nbsp;&nbsp;<span class="prop">transform</span>: <span class="val">translateX(-50%)</span>;</div>
+    <div class="codeLine">&nbsp;&nbsp;<span class="prop">background</span>: <span class="var">var(--letter-love)</span>;</div>
+    <div class="codeLine">}</div>
+  </div>
+
+  <div class="final" id="final">
+    <div class="card">
+      <div class="sunflowers">🌻 🌼 🌻</div>
+      <h1>TE QUIERO</h1>
+      <p>Que estas flores amarillas<br>lleven todo mi cariño hasta ti.</p>
+      <div class="sunflowers">🌼 💛 🌼</div>
+    </div>
+  </div>
+  <button class="restart" onclick="location.reload()">↻ Reiniciar</button>
+</div>
+
+<script>
+const note=document.getElementById('interactiveNote');let noteTimer;document.querySelectorAll('.flower').forEach((el,i)=>{el.style.cursor='pointer';el.addEventListener('click',()=>{const msgs=['Para ti 🌻','Siempre en mi corazón 💛','Mi persona favorita ✨','Un poquito de amor 💛','Nunca te falten flores 🌻','Te quiero muchísimo 💛','Mi lugar favorito es contigo 🌼','Para alegrarte el día ✨','Todo mi cariño para ti 💛'];note.textContent=msgs[i%msgs.length];note.classList.add('show');clearTimeout(noteTimer);noteTimer=setTimeout(()=>note.classList.remove('show'),1800);for(let n=0;n<10;n++){const p=document.createElement('span');p.textContent=['✦','♥','🌼','✧'][Math.floor(Math.random()*4)];p.style.cssText=`position:fixed;left:${el.getBoundingClientRect().left+el.offsetWidth/2}px;top:${el.getBoundingClientRect().top+el.offsetHeight/2}px;color:#fff27a;z-index:100;font-size:20px;pointer-events:none;animation:burst .9s ease-out forwards;--x:${(Math.random()-.5)*140}px;--y:${(Math.random()-.5)*140}px`;document.body.appendChild(p);setTimeout(()=>p.remove(),950)}})});const stars=document.getElementById('stars');
+for(let i=0;i<190;i++){
+  const s=document.createElement('i'); s.className='star'+(Math.random()>.88?' big':'');
+  s.style.left=(Math.random()*100)+'%'; s.style.top=(Math.random()*100)+'%';
+  s.style.animationDelay=(-Math.random()*3)+'s';
+  s.style.opacity=(.25+Math.random()*.75);
+  stars.appendChild(s);
+}
+// pequeños pétalos/partículas que caen y flotan
+for(let i=0;i<34;i++){
+  const p=document.createElement('i');
+  p.className='star'; p.style.width=p.style.height=(2+Math.random()*4)+'px';
+  p.style.left=Math.random()*100+'%'; p.style.top=Math.random()*100+'%';
+  p.style.animationDuration=(1.5+Math.random()*3)+'s';
+  stars.appendChild(p);
+}
+// La composición final aparece hacia el final del ciclo, como en el video.
+setTimeout(()=>document.getElementById('final').classList.add('show'), 20500);
+setTimeout(()=>location.reload(), 28000);
+</script>
+</body>
+</html>
